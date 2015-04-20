@@ -104,8 +104,9 @@ public class SimpleUI {
 									logger.info(">> Duración:  " + duracion(duracion) + ">> [ " + duracion + " ] milis");
 									semilla.duracion = duracion;
 								}
-								new SimplePlot(semillas).setVisible(true);
-								
+								logger.info("Graficando . . .");
+								//new SimplePlot(semillas).setVisible(true);
+								new Graficador(semillas, cls.getName()).setVisible(true);
 							} catch (Exception e) {
 								logger.error("Error en la ejecucion: " + e.getLocalizedMessage());
 								e.printStackTrace();
