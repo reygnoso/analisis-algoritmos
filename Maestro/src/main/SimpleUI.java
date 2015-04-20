@@ -15,8 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import dominio.Semilla;
 import net.miginfocom.swing.MigLayout;
+import dominio.Semilla;
 
 public class SimpleUI {
 	private static final Logger logger = new Logger(SimpleUI.class);
@@ -55,7 +55,8 @@ public class SimpleUI {
 		frmAnlisisDeAlgoritmos.setTitle("An\u00E1lisis de Algoritmos");
 		frmAnlisisDeAlgoritmos.setBounds(100, 100, 1275, 551);
 		frmAnlisisDeAlgoritmos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAnlisisDeAlgoritmos.getContentPane().setLayout(new MigLayout("", "[grow][][grow][][][grow][][][]", "[][][grow]"));
+		frmAnlisisDeAlgoritmos.getContentPane().setLayout(
+				new MigLayout("", "[grow][][grow][][][grow][][][]", "[][][grow]"));
 
 		JLabel label1 = new JLabel("M\u00E9todos");
 		label1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,9 +102,10 @@ public class SimpleUI {
 									long tiempoFin = new Date().getTime();
 									long duracion = tiempoFin - ahora.getTime();
 									logger.info(">> Duración:  " + duracion(duracion) + ">> [ " + duracion + " ] milis");
-
+									semilla.duracion = duracion;
 								}
-
+								new SimplePlot(semillas).setVisible(true);
+								
 							} catch (Exception e) {
 								logger.error("Error en la ejecucion: " + e.getLocalizedMessage());
 								e.printStackTrace();
