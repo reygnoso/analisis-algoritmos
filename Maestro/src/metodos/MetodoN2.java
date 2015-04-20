@@ -8,21 +8,30 @@ import dominio.MetodoPrueba;
 import dominio.Semilla;
 import main.Logger;
 
-public class MetodoN implements MetodoPrueba {
-	private static final Logger logger = new Logger(MetodoN.class);
+public class MetodoN2 implements MetodoPrueba {
+	private static final Logger logger = new Logger(MetodoN2.class);
 
 	public void Cuerpo(Semilla s) {
 
-		// promediar los elementos de un arreglo
-		logger.info("Promediando . . .");
-		int[] e = (int[]) s.dato;
-		double suma = 0;
-		for (int i = 0; i < e.length; i++) {
-			suma += e[i];
+		// ordenamiento por burbuja
+		logger.info("ordenando . . .");
+		int[] arr = (int[]) s.dato;
+		boolean swapped = true;
+		int j = 0;
+		int tmp;
+		while (swapped) {
+			swapped = false;
+			j++;
+			for (int i = 0; i < arr.length - j; i++) {
+				if (arr[i] > arr[i + 1]) {
+					tmp = arr[i];
+					arr[i] = arr[i + 1];
+					arr[i + 1] = tmp;
+					swapped = true;
+				}
+			}
 		}
-		suma = suma / e.length;
-		logger.info("Promedio [" + suma + "]");
-
+		
 	}
 
 	@Override
@@ -31,7 +40,7 @@ public class MetodoN implements MetodoPrueba {
 		// generacion de 20 semillas simples
 		int total = 30;
 		for (int i = 1; i < total; i++) {
-			s.add(generaSemilla(i*100000));
+			s.add(generaSemilla(i * 1000));
 		}
 		return s;
 	}
@@ -45,10 +54,10 @@ public class MetodoN implements MetodoPrueba {
 		Random rand = new Random();
 		int max = 100;
 		int min = 1;
-  
+
 		for (int i = 0; i < e.length; i++) {
-			e[i] = rand.nextInt((max - min) + 1) + min; 
-		} 
+			e[i] = rand.nextInt((max - min) + 1) + min;
+		}
 		return new Semilla(n, e);
 	}
 }

@@ -11,19 +11,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import metodos.Semilla;
+import dominio.Semilla;
 import net.miginfocom.swing.MigLayout;
 
 public class SimpleUI {
 	private static final Logger logger = new Logger(SimpleUI.class);
-	private JFrame frame;
-	private static JTextArea log;
+	private JFrame frmAnlisisDeAlgoritmos;
+	static JTextArea log;
 
 	public void mostrar() {
-		frame.setVisible(true);
+		frmAnlisisDeAlgoritmos.setVisible(true);
 	}
 
 	public static void writeLog(String msg) {
@@ -50,21 +51,22 @@ public class SimpleUI {
 	 * @param modelo
 	 */
 	private void initialize(DefaultListModel<String> modelo) {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 975, 551);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[grow][][grow][][][grow][][][]", "[][][grow]"));
+		frmAnlisisDeAlgoritmos = new JFrame();
+		frmAnlisisDeAlgoritmos.setTitle("An\u00E1lisis de Algoritmos");
+		frmAnlisisDeAlgoritmos.setBounds(100, 100, 1275, 551);
+		frmAnlisisDeAlgoritmos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAnlisisDeAlgoritmos.getContentPane().setLayout(new MigLayout("", "[grow][][grow][][][grow][][][]", "[][][grow]"));
 
 		JLabel label1 = new JLabel("M\u00E9todos");
 		label1.setHorizontalAlignment(SwingConstants.CENTER);
-		frame.getContentPane().add(label1, "cell 0 0");
+		frmAnlisisDeAlgoritmos.getContentPane().add(label1, "cell 0 0");
 
 		JLabel label2 = new JLabel("Salida");
-		frame.getContentPane().add(label2, "cell 2 0");
+		frmAnlisisDeAlgoritmos.getContentPane().add(label2, "cell 2 0");
 
 		JList<String> lista = new JList<String>();
 		lista.setModel(modelo);
-		frame.getContentPane().add(lista, "cell 0 2,grow");
+		frmAnlisisDeAlgoritmos.getContentPane().add(lista, "cell 0 2,grow");
 
 		JButton ejecutar = new JButton("ejecutar rutina");
 		ejecutar.addActionListener(new ActionListener() {
@@ -90,7 +92,8 @@ public class SimpleUI {
 
 								for (Semilla semilla : semillas) {
 									Date ahora = new Date();
-									logger.info(">> Inicio en el [ " + ahora.toString() + " ]  con semilla tam [" + semilla.tam + "] ");
+									logger.info(">> Inicio en el [ " + ahora.toString() + " ]  con semilla tam ["
+											+ semilla.tam + "] ");
 
 									// void -> cuerpo del problema
 									cls.getMethod("Cuerpo", Semilla.class).invoke(cls.newInstance(), semilla);
@@ -142,10 +145,13 @@ public class SimpleUI {
 				}
 			}
 		});
-		frame.getContentPane().add(ejecutar, "cell 0 1");
+		frmAnlisisDeAlgoritmos.getContentPane().add(ejecutar, "cell 0 1");
+
+		JScrollPane scrollPane = new JScrollPane();
+		frmAnlisisDeAlgoritmos.getContentPane().add(scrollPane, "cell 2 2 7 1,grow");
 
 		log = new JTextArea();
-		frame.getContentPane().add(log, "cell 2 2 7 1,grow");
+		scrollPane.setViewportView(log);
 	}
 
 }

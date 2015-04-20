@@ -23,7 +23,6 @@ public class Main {
 			logger.info("Iniciando aplicacion . . .");
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-			// Todas las clases del paquete exe
 			List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();
 			classLoadersList.add(ClasspathHelper.contextClassLoader());
 			classLoadersList.add(ClasspathHelper.staticClassLoader());

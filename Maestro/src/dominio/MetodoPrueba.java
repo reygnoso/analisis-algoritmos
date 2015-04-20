@@ -1,8 +1,8 @@
-package metodos;
+package dominio;
 
 import java.util.List;
 
-interface MetodoPrueba {
+public interface MetodoPrueba {
 	String nombre = null;
 
 	List<Semilla> obtenSemillas();

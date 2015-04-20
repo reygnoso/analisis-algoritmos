@@ -1,4 +1,4 @@
-package metodos;
+package dominio;
 
 public class Semilla {
 	public int tam;
