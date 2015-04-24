@@ -20,6 +20,7 @@ public class SimplePlot extends JFrame {
 	public SimplePlot(List<Semilla> semillas) {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(1200, 800);
+		
 
 		@SuppressWarnings("unchecked")
 		DataTable data = new DataTable(Integer.class, Long.class);

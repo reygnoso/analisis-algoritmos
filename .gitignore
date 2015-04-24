@@ -6,8 +6,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
-*.jar
+# Package Files ##
+##  este debe ir; por librerias añadidas que no estan en maven*.jar
+
 *.war
 *.ear
 

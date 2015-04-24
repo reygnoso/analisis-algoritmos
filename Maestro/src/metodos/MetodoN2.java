@@ -31,16 +31,16 @@ public class MetodoN2 implements MetodoPrueba {
 				}
 			}
 		}
-		
+		// fin del metodo
 	}
 
 	@Override
 	public List<Semilla> obtenSemillas() {
 		List<Semilla> s = new ArrayList<Semilla>();
-		// generacion de 20 semillas simples
-		int total = 30;
+		// generacion de 30 semillas simples
+		int total = 200;
 		for (int i = 1; i < total; i++) {
-			s.add(generaSemilla(i * 1000));
+			s.add(generaSemilla(i * 100));
 		}
 		return s;
 	}

@@ -91,10 +91,16 @@ public class SimpleUI {
 								List<Semilla> semillas = (List<Semilla>) cls.getMethod("obtenSemillas").invoke(
 										cls.newInstance());
 
+								float porcentaje = 0;
+								float total = semillas.size();
+								int i = 0;
 								for (Semilla semilla : semillas) {
+									i++;
+									porcentaje = (i * 100) / total;
+
 									Date ahora = new Date();
-									logger.info(">> Inicio en el [ " + ahora.toString() + " ]  con semilla tam ["
-											+ semilla.tam + "] ");
+
+									logger.info(">> [  % " + porcentaje + " ]  con semilla tam [" + semilla.tam + "] ");
 
 									// void -> cuerpo del problema
 									cls.getMethod("Cuerpo", Semilla.class).invoke(cls.newInstance(), semilla);
@@ -105,8 +111,9 @@ public class SimpleUI {
 									semilla.duracion = duracion;
 								}
 								logger.info("Graficando . . .");
-								//new SimplePlot(semillas).setVisible(true);
-								new Graficador(semillas, cls.getName()).setVisible(true);
+								new SimplePlot(semillas).setVisible(true);
+								// new Graficador(semillas,
+								// cls.getName()).setVisible(true);
 							} catch (Exception e) {
 								logger.error("Error en la ejecucion: " + e.getLocalizedMessage());
 								e.printStackTrace();
