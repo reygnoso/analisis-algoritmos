@@ -29,9 +29,9 @@ public class MetodoN implements MetodoPrueba {
 	public List<Semilla> obtenSemillas() {
 		List<Semilla> s = new ArrayList<Semilla>();
 		// generacion de 20 semillas simples
-		int total = 30;
+		int total = 300;
 		for (int i = 1; i < total; i++) {
-			s.add(generaSemilla(i*100000));
+			s.add(generaSemilla(i*100));
 		}
 		return s;
 	}
