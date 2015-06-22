@@ -27,10 +27,16 @@ public class Main {
 			classLoadersList.add(ClasspathHelper.contextClassLoader());
 			classLoadersList.add(ClasspathHelper.staticClassLoader());
 
-			Reflections reflections = new Reflections(new ConfigurationBuilder()
-					.setScanners(new SubTypesScanner(false), new ResourcesScanner())
-					.setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
-					.filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix("metodos"))));
+			Reflections reflections = new Reflections(
+					new ConfigurationBuilder()
+							.setScanners(new SubTypesScanner(false),
+									new ResourcesScanner())
+							.setUrls(
+									ClasspathHelper.forClassLoader(classLoadersList
+											.toArray(new ClassLoader[0])))
+							.filterInputsBy(
+									new FilterBuilder().include(FilterBuilder
+											.prefix("metodos"))));
 			Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
 
 			DefaultListModel<String> modelo = new DefaultListModel<String>();
@@ -42,6 +48,7 @@ public class Main {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 }

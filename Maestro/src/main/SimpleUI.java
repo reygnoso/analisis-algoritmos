@@ -2,7 +2,6 @@ package main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +13,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.text.DefaultCaret;
 
 import net.miginfocom.swing.MigLayout;
 import dominio.Semilla;
@@ -30,6 +30,7 @@ public class SimpleUI {
 	public static void writeLog(String msg) {
 		try {
 			log.append("\n" + msg);
+
 		} catch (Exception ex) {
 		}
 	}
@@ -56,7 +57,8 @@ public class SimpleUI {
 		frmAnlisisDeAlgoritmos.setBounds(100, 100, 1275, 551);
 		frmAnlisisDeAlgoritmos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAnlisisDeAlgoritmos.getContentPane().setLayout(
-				new MigLayout("", "[grow][][grow][][][grow][][][]", "[][][grow]"));
+				new MigLayout("", "[grow][][grow][][][grow][][][]",
+						"[][][grow]"));
 
 		JLabel label1 = new JLabel("M\u00E9todos");
 		label1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,7 +67,7 @@ public class SimpleUI {
 		JLabel label2 = new JLabel("Salida");
 		frmAnlisisDeAlgoritmos.getContentPane().add(label2, "cell 2 0");
 
-		JList<String> lista = new JList<String>();
+		final JList<String> lista = new JList<String>();
 		lista.setModel(modelo);
 		frmAnlisisDeAlgoritmos.getContentPane().add(lista, "cell 0 2,grow");
 
@@ -79,7 +81,8 @@ public class SimpleUI {
 					return;
 				}
 
-				logger.info("Ejecutando clase seleccionada: " + lista.getSelectedValue());
+				logger.info("Ejecutando clase seleccionada: "
+						+ lista.getSelectedValue());
 
 				try {
 					new Thread() {
@@ -88,8 +91,9 @@ public class SimpleUI {
 							try {
 								cls = Class.forName(lista.getSelectedValue());
 								@SuppressWarnings("unchecked")
-								List<Semilla> semillas = (List<Semilla>) cls.getMethod("obtenSemillas").invoke(
-										cls.newInstance());
+								List<Semilla> semillas = (List<Semilla>) cls
+										.getMethod("obtenSemillas").invoke(
+												cls.newInstance());
 
 								float porcentaje = 0;
 								float total = semillas.size();
@@ -97,17 +101,18 @@ public class SimpleUI {
 								for (Semilla semilla : semillas) {
 									i++;
 									porcentaje = (i * 100) / total;
-
-									Date ahora = new Date();
-
-									logger.info(">> [  % " + porcentaje + " ]  con semilla tam [" + semilla.tam + "] ");
-
+									logger.info(">> [  % " + porcentaje
+											+ " ]  con semilla tam ["
+											+ semilla.tam + "] ");
 									// void -> cuerpo del problema
-									cls.getMethod("Cuerpo", Semilla.class).invoke(cls.newInstance(), semilla);
-
-									long tiempoFin = new Date().getTime();
-									long duracion = tiempoFin - ahora.getTime();
-									logger.info(">> Duración:  " + duracion(duracion) + ">> [ " + duracion + " ] milis");
+									long inicio = System.nanoTime();
+									cls.getMethod("Cuerpo", Semilla.class)
+											.invoke(cls.newInstance(), semilla);
+									long tiempoFin = System.nanoTime();
+									long duracion = tiempoFin - inicio;
+									logger.info(">> Duración:  "
+											+ duracion(duracion) + ">> [ "
+											+ duracion + " ] nanos");
 									semilla.duracion = duracion;
 								}
 								logger.info("Graficando . . .");
@@ -115,24 +120,33 @@ public class SimpleUI {
 								// new Graficador(semillas,
 								// cls.getName()).setVisible(true);
 							} catch (Exception e) {
-								logger.error("Error en la ejecucion: " + e.getLocalizedMessage());
+								logger.error("Error en la ejecucion: "
+										+ e.getLocalizedMessage());
 								e.printStackTrace();
+								System.exit(0);
 							}
 						}
 
 						private String duracion(long millis) {
 							{
 								if (millis < 0) {
-									throw new IllegalArgumentException("Duracion invalida");
+									throw new IllegalArgumentException(
+											"Duracion invalida");
 								}
 
-								long days = TimeUnit.MILLISECONDS.toDays(millis);
+								long days = TimeUnit.NANOSECONDS.toDays(millis);
 								millis -= TimeUnit.DAYS.toMillis(days);
-								long hours = TimeUnit.MILLISECONDS.toHours(millis);
+
+								long hours = TimeUnit.NANOSECONDS
+										.toHours(millis);
 								millis -= TimeUnit.HOURS.toMillis(hours);
-								long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
+
+								long minutes = TimeUnit.NANOSECONDS
+										.toMinutes(millis);
 								millis -= TimeUnit.MINUTES.toMillis(minutes);
-								long seconds = TimeUnit.MILLISECONDS.toSeconds(millis);
+
+								long seconds = TimeUnit.NANOSECONDS
+										.toSeconds(millis);
 
 								StringBuilder sb = new StringBuilder(64);
 								sb.append(days);
@@ -150,17 +164,25 @@ public class SimpleUI {
 					}.start();
 
 				} catch (Exception e1) {
-					logger.error("Error en   ejecucion: " + e1.getLocalizedMessage());
+					logger.error("Error en  ejecucion: "
+							+ e1.getLocalizedMessage());
 					e1.printStackTrace();
+					System.exit(0);
+
 				}
 			}
 		});
 		frmAnlisisDeAlgoritmos.getContentPane().add(ejecutar, "cell 0 1");
 
 		JScrollPane scrollPane = new JScrollPane();
-		frmAnlisisDeAlgoritmos.getContentPane().add(scrollPane, "cell 2 2 7 1,grow");
+		frmAnlisisDeAlgoritmos.getContentPane().add(scrollPane,
+				"cell 2 2 7 1,grow");
 
 		log = new JTextArea();
+
+		DefaultCaret caret = (DefaultCaret) log.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
 		scrollPane.setViewportView(log);
 	}
 
