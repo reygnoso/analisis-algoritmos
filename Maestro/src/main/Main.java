@@ -35,8 +35,7 @@ public class Main {
 									ClasspathHelper.forClassLoader(classLoadersList
 											.toArray(new ClassLoader[0])))
 							.filterInputsBy(
-									new FilterBuilder().include(FilterBuilder
-											.prefix("metodos"))));
+									new FilterBuilder().include(FilterBuilder 	.prefix("metodos"))));
 			Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
 
 			DefaultListModel<String> modelo = new DefaultListModel<String>();

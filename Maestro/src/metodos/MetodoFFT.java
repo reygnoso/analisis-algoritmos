@@ -24,9 +24,9 @@ public class MetodoFFT implements MetodoPrueba {
 	public List<Semilla> obtenSemillas() {
 		List<Semilla> s = new ArrayList<Semilla>();
 		// generacion de 20 semillas simples
-		int total = 1000;
+		int total = 400;
 		for (int i = 1; i < total; i++) {
-			s.add(generaSemilla(i * 100));
+			s.add(generaSemilla(i * 900));
 		}
 		return s;
 	}

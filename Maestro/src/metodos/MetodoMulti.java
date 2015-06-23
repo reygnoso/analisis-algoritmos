@@ -24,9 +24,9 @@ public class MetodoMulti implements MetodoPrueba {
 	}
 
 	private String multi(String a, String b) {
-		if (a.length() == 1) {
-			return String.valueOf(Integer.valueOf(a) * Integer.valueOf(b));
-		}
+		
+	 return new BigInteger(a).multiply(new BigInteger(b)).toString();
+	 
 		// String Al= a.substring(a.length()/2);
 		// String Bl= b.substring(b.length()/2);
 		// String Ar= a.substring(a.length()/2,a.length());
@@ -47,14 +47,14 @@ public class MetodoMulti implements MetodoPrueba {
 		 * return c
 		 */
 
-		return null;
+	 
 	}
 
 	@Override
 	public List<Semilla> obtenSemillas() {
 		List<Semilla> s = new ArrayList<Semilla>();
 		// generacion de 20 semillas simples
-		int total = 50;
+		int total = 500;
 		for (int i = 1; i < total; i++) {
 			s.add(generaSemilla(i * 40));
 		}
