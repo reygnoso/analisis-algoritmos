@@ -8,9 +8,9 @@ import dominio.MetodoPrueba;
 import dominio.Semilla;
 import main.Logger;
 
-public class MetodoMatrixChainOrder implements MetodoPrueba {
+public class Practica5_MetodoMatrixChainOrder implements MetodoPrueba {
 	private static final Logger logger = new Logger(
-			MetodoMatrixChainOrder.class);
+			Practica5_MetodoMatrixChainOrder.class);
 
 	int[][] m;
 	int[][] s;

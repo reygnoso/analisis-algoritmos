@@ -10,8 +10,8 @@ import main.Logger;
 import dominio.MetodoPrueba;
 import dominio.Semilla;
 
-public class MetodoPermutar implements MetodoPrueba {
-	private static final Logger logger = new Logger(MetodoPermutar.class);
+public class Practica3_MetodoPermutar implements MetodoPrueba {
+	private static final Logger logger = new Logger(Practica3_MetodoPermutar.class);
 
 	public void Cuerpo(Semilla s) {
 		Random rand = new Random();

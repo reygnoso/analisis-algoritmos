@@ -8,8 +8,8 @@ import dominio.MetodoPrueba;
 import dominio.Semilla;
 import main.Logger;
 
-public class MetodoN2 implements MetodoPrueba {
-	private static final Logger logger = new Logger(MetodoN2.class);
+public class Practica1_MetodoN2 implements MetodoPrueba {
+	private static final Logger logger = new Logger(Practica1_MetodoN2.class);
 
 	public void Cuerpo(Semilla s) {
 

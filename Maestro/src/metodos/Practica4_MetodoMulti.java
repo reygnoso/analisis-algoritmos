@@ -9,8 +9,8 @@ import main.Logger;
 import dominio.MetodoPrueba;
 import dominio.Semilla;
 
-public class MetodoMulti implements MetodoPrueba {
-	private static final Logger logger = new Logger(MetodoMulti.class);
+public class Practica4_MetodoMulti implements MetodoPrueba {
+	private static final Logger logger = new Logger(Practica4_MetodoMulti.class);
 
 	public void Cuerpo(Semilla s) {
 

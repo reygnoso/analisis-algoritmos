@@ -8,9 +8,9 @@ import dominio.MetodoPrueba;
 import dominio.Semilla;
 import main.Logger;
  
-public class MetodoMerge implements MetodoPrueba {
+public class Practica2_MetodoMerge implements MetodoPrueba {
  
-    private static final Logger logger = new Logger(MetodoMerge.class);
+    private static final Logger logger = new Logger(Practica2_MetodoMerge.class);
  
     public void Cuerpo(Semilla s) {
  
